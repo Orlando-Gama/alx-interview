@@ -1,30 +1,21 @@
 #!/usr/bin/python3
-"""
-Minimum Operations
-"""
-
-import math
+""" Minimum Operations
+    """
 
 
-def factors(n):
-    """factors of n number"""
-    mylist = []
-    while n % 2 == 0:
-        mylist.append(2)
-        n = n / 2
-    for i in range(3, int(math.sqrt(n)) + 1, 2):
-        while n % i == 0:
-            mylist.append(i)
-            n = n / i
-    if n > 2:
-        mylist.append(n)
-    return mylist
-
-
-def minOperations(n):
-    """calculate the minimum operations"""
-    if type(n) != int or n < 2:
+def minOperations(n: int) -> int:
+    """ Minimum Operations needed to get n H characters """
+    next = 'H'
+    body = 'H'
+    op = 0
+    while (len(body) < n):
+        if n % len(body) == 0:
+            op += 2
+            next = body
+            body += body
+        else:
+            op += 1
+            body += next
+    if len(body) != n:
         return 0
-    else:
-        numOperations = sum(factors(n))
-        return int(numOperations
+    return op
